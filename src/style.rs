@@ -1,13 +1,9 @@
-
 use bevy::{ecs::system::EntityCommands, prelude::*};
 
- 
-//wraps entitycommands into a prop so they can be operated on by World-access systems 
- pub struct UiStyle<'a>{
- 	  commands: EntityCommands<'a>
- }
-
-
+//wraps entitycommands into a prop so they can be operated on by World-access systems
+pub struct UiStyle<'a> {
+    commands: EntityCommands<'a>,
+}
 
 impl UiStyle<'_> {
     /// Returns the Entity that is the target of all styling commands
@@ -44,7 +40,7 @@ pub trait UiStyleExt {
     ///     }
     /// }
     /// ```
-    fn style(&mut self ) -> UiStyle;
+    fn style(&mut self) -> UiStyle;
 }
 
 // ?
@@ -58,11 +54,10 @@ impl UiStyleExt for Commands<'_, '_> {
 }
 */
 
-
 impl UiStyleExt for EntityCommands<'_> {
-    fn style(&mut self ) -> UiStyle {
+    fn style(&mut self) -> UiStyle {
         UiStyle {
-            commands: self.reborrow()
+            commands: self.reborrow(),
         }
     }
 }
