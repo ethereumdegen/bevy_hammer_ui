@@ -35,7 +35,10 @@ pub fn setup (
         .entity(root_node)
         .container( NodeBundle::default() , |inner| {
 
-        	inner.spawn(NodeBundle::default())  ;
+        	inner
+        	.spawn(NodeBundle::default()) 
+        	.style()
+        	.width(Val::Px(50.0) );
 
         } )	
         
