@@ -1,8 +1,8 @@
 [package]
 name = "bevy_hammer_ui"
-version = "0.14.0"
+version = "0.15.0"
 edition = "2021"
 
 [dependencies]
 
-bevy = "0.14.2"
+bevy = "0.15.0"
