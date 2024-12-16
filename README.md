@@ -1,8 +1,8 @@
 ### Bevy Hammer UI
 
-A lightweight and barebones UI framework for bevy, using EntityCommands spawners.
+A barebones UI framework for bevy, using UiBuilder pattern to retain Command context.
 
-Inspired by Romain in the bevy discord 
+Inspired by SickleUi  (basically the most important 2 files from sickle ui)
 
 
 ####  Use vanilla bevy UI but with a bit more power: 
