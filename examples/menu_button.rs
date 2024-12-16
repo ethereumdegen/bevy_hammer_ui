@@ -1,9 +1,11 @@
+use bevy_hammer_ui::ui_builder::UiBuilder;
+use bevy_hammer_ui::ui_builder::UiBuilderExt;
 use bevy::{
     ecs::system::{EntityCommand, EntityCommands},
     prelude::*,
 };
 
-use bevy_hammer_ui::spawn::Spawn;
+ 
 use bevy_hammer_ui::style::{UiStyle, UiStyleExt};
 
 fn main() {
@@ -15,16 +17,16 @@ fn main() {
 
 pub fn setup(mut commands: Commands) {
     let root_node = commands
-        .spawn(NodeBundle::default())
+        .spawn(Node ::default())
         .style()
         //style stuff
         .id();
 
     let container_node = commands
-        .entity(root_node)
-        .container(NodeBundle::default(), |inner| {
+        .ui_builder(root_node)
+        .container(Node ::default(), |inner| {
             inner
-                .spawn(NodeBundle::default())
+                .spawn(Node ::default())
                 .style()
                 .width(Val::Px(50.0));
         })
@@ -39,10 +41,11 @@ pub trait UiContainerExt {
     fn container(
         &mut self,
         bundle: impl Bundle,
-        spawn_children: impl FnOnce(&mut EntityCommands),
-    ) -> EntityCommands;
+        spawn_children: impl FnOnce(&mut UiBuilder<Entity>),
+    ) -> UiBuilder<Entity>;
 }
 
+/*
 impl UiContainerExt for EntityCommands<'_> {
     fn container(
         &mut self,
@@ -55,6 +58,22 @@ impl UiContainerExt for EntityCommands<'_> {
         new_builder
     }
 }
+*/
+
+
+impl UiContainerExt for UiBuilder<'_, Entity> {
+    fn container(
+        &mut self,
+        bundle: impl Bundle,
+        spawn_children: impl FnOnce(&mut UiBuilder<Entity>),
+    ) -> UiBuilder<Entity> {
+        let mut new_builder = self.spawn(bundle);
+        spawn_children(&mut new_builder);
+
+        new_builder
+    }
+}
+
 
 // implement these yourself ! (sickle ui used macros...)
 
@@ -62,7 +81,7 @@ struct SetUiStyleWidth(Val);
 
 impl EntityCommand for SetUiStyleWidth {
     fn apply(self, entity: Entity, world: &mut World) {
-        let Some(mut style_comp) = world.get_mut::<Style>(entity) else {
+        let Some(mut style_comp) = world.get_mut::<Node>(entity) else {
             return;
         };
 
@@ -76,7 +95,7 @@ pub trait SetUiStyleWidthExt<'a> {
 
 impl<'a> SetUiStyleWidthExt<'a> for UiStyle<'a> {
     fn width(&'a mut self, val: Val) -> &mut UiStyle<'a> {
-        self.entity_commands().add(SetUiStyleWidth(val));
+        self.entity_commands().queue(SetUiStyleWidth(val));
         self
     }
 }

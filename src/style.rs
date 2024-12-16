@@ -1,3 +1,5 @@
+use crate::ui_builder::UiBuilder;
+use crate::ui_builder::UiBuilderGetId;
 use bevy::{ecs::system::EntityCommands, prelude::*};
 
 //wraps entitycommands into a prop so they can be operated on by World-access systems
@@ -54,10 +56,22 @@ impl UiStyleExt for Commands<'_, '_> {
 }
 */
 
+
 impl UiStyleExt for EntityCommands<'_> {
     fn style(&mut self) -> UiStyle {
         UiStyle {
             commands: self.reborrow(),
+        }
+    }
+}
+
+
+impl<T: UiBuilderGetId> UiStyleExt for UiBuilder<'_, T> {
+    fn style(&mut self) -> UiStyle {
+
+     
+        UiStyle {
+            commands: self.entity_commands(),
         }
     }
 }
