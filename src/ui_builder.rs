@@ -87,7 +87,7 @@ impl<T: UiBuilderGetId> UiBuilder<'_, T> {
 
     /// The `EntityCommands` of the builder
     ///
-    /// Poits to the entity currently being built upon (see [`UiBuilder<'_, Entity>::id()`]).
+    /// Points to the entity currently being built upon (see [`UiBuilder<'_, Entity>::id()`]).
     pub fn entity_commands(&mut self) -> EntityCommands {
         let entity = self.id();
         self.commands().entity(entity)
