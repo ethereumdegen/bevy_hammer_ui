@@ -1,10 +1,10 @@
 [package]
 name = "bevy_hammer_ui"
-version = "0.15.1"
+version = "0.16.0"
 edition = "2021"
 description = "Barebones ui widget plugin built for Bevy"
 license = "MIT OR Apache-2.0"
 
 [dependencies]
 
-bevy = "0.15.0"
+bevy = "0.16.0"
