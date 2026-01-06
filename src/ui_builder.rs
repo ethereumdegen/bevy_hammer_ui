@@ -162,7 +162,7 @@ impl<T: UiBuilderGetId> UiBuilder<'_, T> {
     
 
     /// Mount an observer to the current entity (identified by [`UiBuilder<'_, Entity>::id()`])
-    pub fn observe<E: Event, B: Bundle, M>(
+    pub fn observe<E: EntityEvent, B: Bundle, M>(
         &mut self,
         system: impl IntoObserverSystem<E, B, M>,
     ) -> &mut Self {
