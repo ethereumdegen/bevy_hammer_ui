@@ -1,7 +1,7 @@
 use bevy_hammer_ui::ui_builder::UiBuilder;
 use bevy_hammer_ui::ui_builder::UiBuilderExt;
 use bevy::{
-    ecs::system::{EntityCommand, EntityCommands},
+    ecs::system::EntityCommand,
     prelude::*,
 };
 
@@ -80,8 +80,10 @@ impl UiContainerExt for UiBuilder<'_, Entity> {
 struct SetUiStyleWidth(Val);
 
 impl EntityCommand for SetUiStyleWidth {
-    fn apply(self, entity: Entity, world: &mut World) {
-        let Some(mut style_comp) = world.get_mut::<Node>(entity) else {
+    type Out = ();
+
+    fn apply(self, mut entity: EntityWorldMut) {
+        let Some(mut style_comp) = entity.get_mut::<Node>() else {
             return;
         };
 
