@@ -80,3 +80,21 @@ impl<'a> SetUiStyleWidthExt<'a> for UiStyle<'a> {
 }
 
 ```
+
+#### Native text input
+
+`UiTextInputExt` wraps Bevy's native `EditableText` primitive in a styled Hammer UI widget:
+
+```rust
+use bevy_hammer_ui::widgets::text_input::{TextInputConfig, UiTextInputExt};
+
+commands
+    .ui_builder(parent)
+    .text_input(TextInputConfig {
+        initial_value: "Captain".into(),
+        max_characters: Some(64),
+        ..default()
+    });
+```
+
+The application must include Bevy's standard UI widget plugins, as `DefaultPlugins` does.
