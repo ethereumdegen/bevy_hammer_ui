@@ -98,3 +98,29 @@ commands
 ```
 
 The application must include Bevy's standard UI widget plugins, as `DefaultPlugins` does.
+
+#### Built-in style setters (0.19.2)
+
+Every commonly styled `Node` field has a chainable setter, plus a few component setters, so a game
+no longer writes its own `SetWidth`, `SetFlexGrow`, `SetAlignSelf`... commands:
+
+```rust
+use bevy_hammer_ui::prelude::*;
+
+commands
+    .entity(panel)
+    .style()
+    .size(Val::Px(240.0), Val::Px(64.0))
+    .flex_direction(FlexDirection::Column)
+    .row_gap(Val::Px(4.0))
+    .padding(UiRect::all(Val::Px(6.0)))
+    .background_color(Color::srgb(0.1, 0.1, 0.14))
+    .border_color(Color::srgb(0.35, 0.38, 0.5));
+```
+
+`UiNodeStyleExt` covers display, position type, overflow, the four offsets, size and its min/max,
+aspect ratio, all six alignment properties, margin, padding, border, the flex properties and both
+gaps. `UiStyleShorthandExt` adds `size`, `absolute_at`, `background_color`, `border_color`,
+`visibility` and `z_index`. Custom setters still work exactly as before, as extension traits on
+`UiStyle`.
+

@@ -1,11 +1,7 @@
+use bevy::{ecs::system::EntityCommand, prelude::*};
 use bevy_hammer_ui::ui_builder::UiBuilder;
 use bevy_hammer_ui::ui_builder::UiBuilderExt;
-use bevy::{
-    ecs::system::EntityCommand,
-    prelude::*,
-};
 
- 
 use bevy_hammer_ui::style::{UiStyle, UiStyleExt};
 
 fn main() {
@@ -17,18 +13,15 @@ fn main() {
 
 pub fn setup(mut commands: Commands) {
     let root_node = commands
-        .spawn(Node ::default())
+        .spawn(Node::default())
         .style()
         //style stuff
         .id();
 
     let container_node = commands
         .ui_builder(root_node)
-        .container(Node ::default(), |inner| {
-            inner
-                .spawn(Node ::default())
-                .style()
-                .width(Val::Px(50.0));
+        .container(Node::default(), |inner| {
+            inner.spawn(Node::default()).style().width(Val::Px(50.0));
         })
         .style()
         .width(Val::Px(100.0))
@@ -60,7 +53,6 @@ impl UiContainerExt for EntityCommands<'_> {
 }
 */
 
-
 impl UiContainerExt for UiBuilder<'_, Entity> {
     fn container(
         &mut self,
@@ -73,7 +65,6 @@ impl UiContainerExt for UiBuilder<'_, Entity> {
         new_builder
     }
 }
-
 
 // implement these yourself ! (sickle ui used macros...)
 

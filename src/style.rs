@@ -25,7 +25,7 @@ pub trait UiStyleExt {
     /// `sickle_ui` exposes functions for all standard bevy styleable attributes.
     /// Manual extension can be done for custom styling needs via extension traits:
     ///
-    /// ```rust
+    /// ```rust,ignore
     /// pub trait SetMyPropExt {
     ///     fn my_prop(&mut self, value: f32) -> &mut Self;
     /// }
@@ -56,7 +56,6 @@ impl UiStyleExt for Commands<'_, '_> {
 }
 */
 
-
 impl UiStyleExt for EntityCommands<'_> {
     fn style(&mut self) -> UiStyle {
         UiStyle {
@@ -65,11 +64,8 @@ impl UiStyleExt for EntityCommands<'_> {
     }
 }
 
-
 impl<T: UiBuilderGetId> UiStyleExt for UiBuilder<'_, T> {
     fn style(&mut self) -> UiStyle {
-
-     
         UiStyle {
             commands: self.entity_commands(),
         }

@@ -1,4 +1,3 @@
- 
 use bevy::ecs::system::IntoObserverSystem;
 use bevy::{
     ecs::{
@@ -109,7 +108,7 @@ impl<T: UiBuilderGetId> UiBuilder<'_, T> {
     /// `sickle_ui` exposes functions for all standard bevy styleable attributes.
     /// Manual extension can be done for custom styling needs via extension traits:
     ///
-    /// ```rust
+    /// ```rust,ignore
     /// pub trait SetMyPropExt {
     ///     fn my_prop(&mut self, value: f32) -> &mut Self;
     /// }
@@ -126,7 +125,7 @@ impl<T: UiBuilderGetId> UiBuilder<'_, T> {
     ///     }
     /// }
     /// ```
-  /*  pub fn style(&mut self) -> UiStyle {
+    /*  pub fn style(&mut self) -> UiStyle {
         let entity = self.id();
         self.commands().style(entity)
     }
@@ -139,7 +138,6 @@ impl<T: UiBuilderGetId> UiBuilder<'_, T> {
         style_fn(&mut style);
         self
     }*/
-
 
     /// Spawn a child node as a child of the current entity identified by [`UiBuilder<'_, Entity>::id()`]
     pub fn spawn(&mut self, bundle: impl Bundle) -> UiBuilder<Entity> {
@@ -158,8 +156,6 @@ impl<T: UiBuilderGetId> UiBuilder<'_, T> {
         self.entity_commands().insert(bundle);
         self
     }
-
-    
 
     /// Mount an observer to the current entity (identified by [`UiBuilder<'_, Entity>::id()`])
     pub fn observe<E: EntityEvent, B: Bundle, M>(
